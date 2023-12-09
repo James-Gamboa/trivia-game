@@ -1,0 +1,91 @@
+body {
+  font-family: "Pricedown Bl", sans-serif;
+  background-color: slategray;
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  height: 100vh;
+}
+.trivia-game {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex; 
+  align-items: baseline; 
+  justify-content: center; 
+}
+
+h1{
+  text-align: center;
+}
+.player {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.player h2 {
+  margin: 0;
+  font-size: 28px;
+  color: #333;
+}
+
+.player p {
+  margin: 5px 0 0;
+  font-size: 16px;
+  color: #777;
+}
+
+.current-player {
+  background-color: #e6f7ff;
+}
+
+.question {
+  margin-top: 20px;
+}
+
+.question h2 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.question p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+li:hover {
+  background-color: #45a049;
+}
+
+.game-over {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f44336;
+  color: #fff;
+  border-radius: 8px;
+}
