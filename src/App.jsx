@@ -1,6 +1,8 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import TriviaGame from './components/TriviaGame';
+// @ts-nocheck
+import React from "react";
+import TriviaGame from "./components/TriviaGame";
 
 function App({ initialState }) {
   return (

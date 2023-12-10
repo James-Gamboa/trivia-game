@@ -1,22 +1,23 @@
+// @ts-nocheck
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-// @ts-nocheck
-import React, { useState, useEffect } from 'react';
-import Player from './Player';
-import Question from './Question';
+import React, { useState, useEffect } from "react";
+import Player from "./Player";
+import Question from "./Question";
 
-const categories = ['History', 'Science', 'Mathematics', 'Cinema', 'Random'];
+const categories = ["History", "Science", "Mathematics", "Cinema", "Random"];
 
 const TriviaGame = () => {
   const initialState = [
-    { name: 'Player 1', score: 0 },
-    { name: 'Player 2', score: 0 },
+    { name: "Player 1", score: 0 },
+    { name: "Player 2", score: 0 },
   ];
 
   const [players, setPlayers] = useState(initialState);
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [usedQuestions, setUsedQuestions] = useState([]);
 
   useEffect(() => {
     if (players[currentPlayerIndex].score >= 10) {
@@ -37,7 +38,7 @@ const TriviaGame = () => {
   };
 
   const handleCategorySelection = (category) => {
-    setSelectedCategory(category);
+    setSelectedCategory(String(category));
   };
 
   return (
@@ -49,7 +50,7 @@ const TriviaGame = () => {
         <>
           <div>
             <h2>Turno de: {players[currentPlayerIndex].name}</h2>
-            <p>Categoría seleccionada: {selectedCategory || 'No seleccionada'}</p>
+            <p>Categoría seleccionada: {selectedCategory || "No seleccionada"}</p>
           </div>
           <div>
             <h2>Categorías</h2>
@@ -61,7 +62,14 @@ const TriviaGame = () => {
               ))}
             </ul>
           </div>
-          {selectedCategory && <Question category={selectedCategory} onAnswer={handleAnswer} />}
+          {selectedCategory && (
+            <Question
+              category={selectedCategory}
+              onAnswer={handleAnswer}
+              usedQuestions={usedQuestions}
+              setUsedQuestions={setUsedQuestions}
+            />
+          )}
         </>
       )}
       {gameOver && (
