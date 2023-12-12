@@ -105,11 +105,10 @@ li:hover {
 }
 
 .game-over {
-  margin-top: 20px;
-  padding: 20px;
+  margin: 20px;
   background-color: #f44336;
   color: #fff;
-  border-radius: 8px;
+  border-radius: 23px;
 }
 
 .option.selected {
