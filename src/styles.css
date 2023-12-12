@@ -8,6 +8,7 @@ body {
   justify-content: center;
   height: 100vh;
 }
+
 .trivia-game {
   background-color: #fff;
   border-radius: 8px;
@@ -21,6 +22,25 @@ body {
 
 h1 {
   text-align: center;
+}
+
+button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+p {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
 .player {
@@ -92,24 +112,18 @@ li:hover {
   border-radius: 8px;
 }
 
-p {
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-}
-
 .option.selected {
   background-color: #64688b;
 }
 
-
 .option.correct {
-  background-color: #4caf50; 
+  background-color: #4caf50;
 }
 
 .option.incorrect {
   background-color: #f44336;
   color: #fff;
 }
-
 
 .option.selected {
   border: 2px solid #333;
