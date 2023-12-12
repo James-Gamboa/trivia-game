@@ -29,15 +29,16 @@ const TriviaGame = () => {
   const handleAnswer = (isCorrect, question) => {
     if (isCorrect) {
       const updatedPlayers = [...players];
-      updatedPlayers[currentPlayerIndex].score += 1;
+      updatedPlayers[currentPlayerIndex].score += 1; 
       setPlayers(updatedPlayers);
       localStorage.setItem(`player${currentPlayerIndex + 1}Score`, updatedPlayers[currentPlayerIndex].score);
     }
-
+  
     const nextPlayerIndex = (currentPlayerIndex + 1) % players.length;
     setCurrentPlayerIndex(nextPlayerIndex);
     setShouldLoadNewQuestion(true);
   };
+  
 
   const handleCategorySelection = (category) => {
     setSelectedCategory(category);

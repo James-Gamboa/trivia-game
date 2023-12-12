@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 const Question = ({ category, onAnswer, usedQuestions, setUsedQuestions, onNextQuestion }) => {
   const [question, setQuestion] = useState(null);
   const [selectedOption, setSelectedOption] = useState(null);
+  const [isAnswered, setIsAnswered] = useState(false);
 
   useEffect(() => {
     const fetchQuestion = async () => {
@@ -36,6 +37,8 @@ const Question = ({ category, onAnswer, usedQuestions, setUsedQuestions, onNextQ
         const randomQuestion = unusedQuestions[Math.floor(Math.random() * unusedQuestions.length)];
         setQuestion(randomQuestion);
         setUsedQuestions([...usedQuestions, randomQuestion.id]);
+        setSelectedOption(null);
+        setIsAnswered(false);
       } catch (error) {
         console.error("Error fetching question:", error);
       }
@@ -47,12 +50,33 @@ const Question = ({ category, onAnswer, usedQuestions, setUsedQuestions, onNextQ
   }, [category, usedQuestions, question, setUsedQuestions]);
 
   const handleAnswer = () => {
-    if (selectedOption) {
+    if (selectedOption !== null && !isAnswered) {
+      setIsAnswered(true);
       const isCorrect = selectedOption === question?.correctAnswer;
       onAnswer(isCorrect, question);
       onNextQuestion();
-      setSelectedOption(null);
     }
+  };
+
+  const renderOption = (option, isCorrect) => {
+    const isSelected = selectedOption === option;
+
+    let className = "option";
+    if (isAnswered) {
+      className += isCorrect ? " correct" : isSelected ? " incorrect" : "";
+    } else {
+      className += isSelected ? " selected" : "";
+    }
+
+    return (
+      <li
+        key={option}
+        className={className}
+        onClick={() => !isAnswered && setSelectedOption(option)}
+      >
+        {option}
+      </li>
+    );
   };
 
   return (
@@ -63,23 +87,10 @@ const Question = ({ category, onAnswer, usedQuestions, setUsedQuestions, onNextQ
           <p>{question.question.text}</p>
           <ul>
             {question.incorrectAnswers &&
-              question.incorrectAnswers.map((option, index) => (
-                <li
-                  key={index}
-                  className={selectedOption === option ? "selected" : ""}
-                  onClick={() => setSelectedOption(option)}
-                >
-                  {option}
-                </li>
-              ))}
-            <li
-              className={selectedOption === question.correctAnswer ? "selected" : ""}
-              onClick={() => setSelectedOption(question.correctAnswer)}
-            >
-              {question.correctAnswer}
-            </li>
+              question.incorrectAnswers.map((option, index) => renderOption(option, false))}
+            {renderOption(question.correctAnswer, true)}
           </ul>
-          <button onClick={handleAnswer}>Enviar</button>
+          <button onClick={handleAnswer}>Send</button>
         </>
       )}
     </div>

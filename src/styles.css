@@ -14,12 +14,12 @@ body {
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
-  display: flex; 
-  align-items: baseline; 
-  justify-content: center; 
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
 }
 
-h1{
+h1 {
   text-align: center;
 }
 
@@ -93,5 +93,24 @@ li:hover {
 }
 
 p {
-font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.option.selected {
+  background-color: #64688b;
+}
+
+
+.option.correct {
+  background-color: #4caf50; 
+}
+
+.option.incorrect {
+  background-color: #f44336;
+  color: #fff;
+}
+
+
+.option.selected {
+  border: 2px solid #333;
 }
