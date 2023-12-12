@@ -49,11 +49,11 @@ const TriviaGame = () => {
       {!gameOver && (
         <>
           <div>
-            <h2>Turno de: {players[currentPlayerIndex].name}</h2>
-            <p>Categoría seleccionada: {selectedCategory || "No seleccionada"}</p>
+            <h2>Turn of: {players[currentPlayerIndex].name}</h2>
+            <p>Selected category: {selectedCategory || "Not selected"}</p>
           </div>
           <div>
-            <h2>Categorías</h2>
+            <h2>Categories</h2>
             <ul>
               {categories.map((category) => (
                 <li key={category} onClick={() => handleCategorySelection(category)}>
