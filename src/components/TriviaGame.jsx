@@ -18,6 +18,7 @@ const TriviaGame = () => {
   const [gameOver, setGameOver] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [usedQuestions, setUsedQuestions] = useState([]);
+  const [shouldLoadNewQuestion, setShouldLoadNewQuestion] = useState(false);
 
   useEffect(() => {
     if (players[currentPlayerIndex].score >= 10) {
@@ -25,7 +26,7 @@ const TriviaGame = () => {
     }
   }, [players, currentPlayerIndex]);
 
-  const handleAnswer = (isCorrect) => {
+  const handleAnswer = (isCorrect, question) => {
     if (isCorrect) {
       const updatedPlayers = [...players];
       updatedPlayers[currentPlayerIndex].score += 1;
@@ -35,10 +36,17 @@ const TriviaGame = () => {
 
     const nextPlayerIndex = (currentPlayerIndex + 1) % players.length;
     setCurrentPlayerIndex(nextPlayerIndex);
+    setShouldLoadNewQuestion(true);
   };
 
   const handleCategorySelection = (category) => {
-    setSelectedCategory(String(category));
+    setSelectedCategory(category);
+    setUsedQuestions([]);
+    setShouldLoadNewQuestion(true);
+  };
+
+  const handleNextQuestion = () => {
+    setShouldLoadNewQuestion(true);
   };
 
   return (
@@ -62,12 +70,13 @@ const TriviaGame = () => {
               ))}
             </ul>
           </div>
-          {selectedCategory && (
+          {selectedCategory !== null && (
             <Question
               category={selectedCategory}
               onAnswer={handleAnswer}
               usedQuestions={usedQuestions}
               setUsedQuestions={setUsedQuestions}
+              onNextQuestion={handleNextQuestion}
             />
           )}
         </>
