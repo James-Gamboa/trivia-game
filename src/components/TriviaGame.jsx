@@ -14,9 +14,9 @@ const TriviaGame = () => {
   const [gameOver, setGameOver] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [usedQuestions, setUsedQuestions] = useState([]);
-  const [shouldLoadNewQuestion, setShouldLoadNewQuestion] = useState(false);
+  const [setShouldLoadNewQuestion] = useState(false);
 
-  const [categoriesWithUnderscores, setCategoriesWithUnderscores] = useState([
+  const [categoriesWithUnderscores] = useState([
     "History",
     "Science",
     "Society_And_Culture",

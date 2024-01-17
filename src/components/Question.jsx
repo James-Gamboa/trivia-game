@@ -90,7 +90,7 @@ const Question = ({ category, onAnswer, usedQuestions, setUsedQuestions, onNextQ
           <p>{question.question.text}</p>
           <ul>
             {question.incorrectAnswers &&
-              question.incorrectAnswers.map((option, index) => renderOption(option, false))}
+              question.incorrectAnswers.map((option) => renderOption(option, false))}
             {renderOption(question.correctAnswer, true)}
           </ul>
           <button onClick={handleAnswer}>Send</button>
