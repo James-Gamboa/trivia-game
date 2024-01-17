@@ -14,14 +14,13 @@ const TriviaGame = () => {
   const [gameOver, setGameOver] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [usedQuestions, setUsedQuestions] = useState([]);
-  const [setShouldLoadNewQuestion] = useState(false);
+  const [shouldLoadNewQuestion, setShouldLoadNewQuestion] = useState(true);
 
   const [categoriesWithUnderscores] = useState([
     "History",
     "Science",
     "Society_And_Culture",
     "Film_And_Tv",
-    "Random",
   ]);
 
   useEffect(() => {
@@ -50,6 +49,12 @@ const TriviaGame = () => {
     setShouldLoadNewQuestion(true);
   };
 
+  const handleRandomCategory = () => {
+    const randomCategoryIndex = Math.floor(Math.random() * categoriesWithUnderscores.length);
+    const randomCategory = categoriesWithUnderscores[randomCategoryIndex];
+    handleCategorySelection(randomCategory);
+  };
+
   const handleNextQuestion = () => {
     setShouldLoadNewQuestion(true);
   };
@@ -73,6 +78,7 @@ const TriviaGame = () => {
                   {category.replace(/_/g, ' ')}
                 </li>
               ))}
+              <li onClick={handleRandomCategory}>Random</li>
             </ul>
           </div>
           {selectedCategory !== null && (

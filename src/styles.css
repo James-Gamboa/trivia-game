@@ -127,3 +127,8 @@ li:hover {
 .option.selected {
   border: 2px solid #333;
 }
+
+#favicon {
+  width: 16px;
+  height: 16px;
+}
