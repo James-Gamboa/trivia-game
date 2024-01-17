@@ -13,34 +13,39 @@ const Question = ({ category, onAnswer, usedQuestions, setUsedQuestions, onNextQ
         if (category === "Random") {
           url = "https://the-trivia-api.com/v2/questions";
         } else {
-          url = `https://the-trivia-api.com/v2/questions?category=${category.toLowerCase()}`;
+          const lowerCaseCategory = category.toLowerCase();
+          url = `https://the-trivia-api.com/v2/questions?category=${lowerCaseCategory}`;
         }
-
+    
         const response = await fetch(url);
         if (!response.ok) {
           throw new Error("Error fetching question");
         }
         const data = await response.json();
-        if (!Array.isArray(data)) {
-          console.error("Invalid data format:", data);
+    
+        if (!Array.isArray(data) || data.length === 0) {
+          console.error("Invalid data format or empty response:", data);
           return;
         }
-
-        const unusedQuestions = data.filter((q) => !usedQuestions.includes(q.id));
-
+    
+        const unusedQuestions = data.filter(q =>
+          q && !usedQuestions.includes(q.id) && q.category.toLowerCase().replace(/_/g, '') === category.replace(/_/g, '').toLowerCase()
+        );
+    
         if (unusedQuestions.length === 0) {
           setUsedQuestions([]);
+        } else {
+          const randomQuestion = unusedQuestions[Math.floor(Math.random() * unusedQuestions.length)];
+          setQuestion(randomQuestion);
+          setUsedQuestions([...usedQuestions, randomQuestion.id]);
+          setSelectedOption(null);
+          setIsAnswered(false);
         }
-
-        const randomQuestion = unusedQuestions[Math.floor(Math.random() * unusedQuestions.length)];
-        setQuestion(randomQuestion);
-        setUsedQuestions([...usedQuestions, randomQuestion.id]);
-        setSelectedOption(null);
-        setIsAnswered(false);
       } catch (error) {
         console.error("Error fetching question:", error);
       }
     };
+    
 
     if (!usedQuestions.includes(question?.id)) {
       fetchQuestion();
@@ -79,7 +84,7 @@ const Question = ({ category, onAnswer, usedQuestions, setUsedQuestions, onNextQ
 
   return (
     <div className="question">
-      {question && (
+      {question ? (
         <>
           <h2>{question.category}</h2>
           <p>{question.question.text}</p>
@@ -90,6 +95,8 @@ const Question = ({ category, onAnswer, usedQuestions, setUsedQuestions, onNextQ
           </ul>
           <button onClick={handleAnswer}>Send</button>
         </>
+      ) : (
+        <p>Loading question...</p>
       )}
     </div>
   );

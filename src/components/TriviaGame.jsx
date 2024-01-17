@@ -3,8 +3,6 @@ import React, { useState, useEffect } from "react";
 import Player from "./Player";
 import Question from "./Question";
 
-const categories = ["History", "Science", "Mathematics", "Cinema", "Random"];
-
 const TriviaGame = () => {
   const initialState = [
     { name: "Player 1", score: 0 },
@@ -18,6 +16,14 @@ const TriviaGame = () => {
   const [usedQuestions, setUsedQuestions] = useState([]);
   const [shouldLoadNewQuestion, setShouldLoadNewQuestion] = useState(false);
 
+  const [categoriesWithUnderscores, setCategoriesWithUnderscores] = useState([
+    "History",
+    "Science",
+    "Society_And_Culture",
+    "Film_And_Tv",
+    "Random",
+  ]);
+
   useEffect(() => {
     if (players[currentPlayerIndex].score >= 10) {
       setGameOver(true);
@@ -27,19 +33,19 @@ const TriviaGame = () => {
   const handleAnswer = (isCorrect, question) => {
     if (isCorrect) {
       const updatedPlayers = [...players];
-      updatedPlayers[currentPlayerIndex].score += 1; 
+      updatedPlayers[currentPlayerIndex].score += 1;
       setPlayers(updatedPlayers);
       localStorage.setItem(`player${currentPlayerIndex + 1}Score`, updatedPlayers[currentPlayerIndex].score);
     }
-  
+
     const nextPlayerIndex = (currentPlayerIndex + 1) % players.length;
     setCurrentPlayerIndex(nextPlayerIndex);
     setShouldLoadNewQuestion(true);
   };
-  
 
   const handleCategorySelection = (category) => {
-    setSelectedCategory(category);
+    const lowerCaseCategory = category.toLowerCase().replace(/ /g, '_');
+    setSelectedCategory(lowerCaseCategory);
     setUsedQuestions([]);
     setShouldLoadNewQuestion(true);
   };
@@ -57,14 +63,14 @@ const TriviaGame = () => {
         <>
           <div>
             <h2>Turn of: {players[currentPlayerIndex].name}</h2>
-            <p>Selected category: {selectedCategory || "Not selected"}</p>
+            <p>Selected category: {selectedCategory ? selectedCategory.replace(/_/g, ' ') : "Not selected"}</p>
           </div>
           <div>
             <h2>Categories</h2>
             <ul>
-              {categories.map((category) => (
+              {categoriesWithUnderscores.map((category) => (
                 <li key={category} onClick={() => handleCategorySelection(category)}>
-                  {category}
+                  {category.replace(/_/g, ' ')}
                 </li>
               ))}
             </ul>
